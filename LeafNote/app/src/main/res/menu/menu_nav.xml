@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_menu_home"
+            android:title="@string/item_menu_1"
+            android:icon="@drawable/ic_baseline_home_24"/>
+
+<!--        <item android:id="@+id/nav_menu_2"-->
+<!--            android:title="@string/item_menu_2"-->
+<!--            android:icon="@drawable/ic_baseline_star_24"/>-->
+
+        <item android:id="@+id/nav_menu_note"
+            android:title="@string/item_menu_3"
+            android:icon="@drawable/ic_baseline_sticky_note_2_24"/>
+
+        <item android:id="@+id/nav_menu_task"
+            android:title="@string/item_menu_4"
+            android:icon="@drawable/ic_baseline_check_circle_24"/>
+
+        <item android:id="@+id/nav_menu_notebook"
+            android:title="@string/item_menu_5"
+            android:icon="@drawable/ic_baseline_book_24"/>
+
+        <item android:id="@+id/nav_menu_card"
+            android:title="@string/item_menu_6"
+            android:icon="@drawable/ic_baseline_label_24"/>
+
+        <item android:id="@+id/nav_menu_share"
+            android:title="@string/item_menu_7"
+            android:icon="@drawable/ic_baseline_supervised_user_circle_24"/>
+
+        <item android:id="@+id/nav_menu_bin"
+            android:title="@string/item_menu_8"
+            android:icon="@drawable/ic_baseline_delete_24"/>
+    </group>
+</menu>
