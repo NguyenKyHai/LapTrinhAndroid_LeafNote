@@ -4,59 +4,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.navigation.NavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import hcmute.edu.vn.leafnote.fragment.HomeFragment;
-import hcmute.edu.vn.leafnote.fragment.NoteFragment;
-import hcmute.edu.vn.leafnote.fragment.TaskFragment;
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     //Open Search
     TextView search;
 
     //Open sub note
     TextView subNote;
 
+    //Open Deleted
+    TextView deleted;
+
     //Chọn ảnh
     ImageView imageView;
     int imagevalue;
-
-    //Bắt đầu toolbar Menu
-    Toolbar toolbar;
-
-    //Bắt đầu khai báo Menu
-    private DrawerLayout menuDrawerLayout;
-
-    //Phân biệt fragment
-    private static final int FRAGMENT_HOME = 0;
-    private static final int FRAGMENT_NOTE = 1;
-    private static final int FRAGMENT_TASK = 2;
-    private static final int FRAGMENT_NOTEBOOK = 3;
-    private static final int FRAGMENT_CARD = 4;
-    private static final int FRAGMENT_SHARE = 5;
-    private static final int FRAGMENT_BIN = 6;
-
-    private int currentFragment = FRAGMENT_HOME;
 
     //Bắt đầu khai báo Button Bottom Sheet
     Button openBottomSheet;
@@ -64,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Khai báo các thành phần khác giao diện chính
     TextView titleHeader, setDay;
     LinearLayout customHeader;
+
+    //Xem tất cả note
+    LinearLayout allNotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,20 +54,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Open search
         setOpenSearch();
 
-        //Menu
-        openMenu();
-
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        replaceFragment(new HomeFragment());
-        navigationView.getMenu().findItem(R.id.nav_menu_home).setChecked(true);
-
         //Bottom Sheet
         openBottomSheet();
 
         //Open new note
-        //setOpenSubNote();
+        setOpenSubNote();
+
+        //Open deleted
+        setOpenDeleted();
+
+        //Open allNotes
+        setOpenAllNotes();
 
 
         //Nhận ảnh
@@ -117,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
     private void addControl() {
         //Start Header
         customHeader = (LinearLayout) findViewById(R.id.CustomHeader);
@@ -126,15 +100,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Open search
         search = (TextView) findViewById(R.id.openSearch);
 
-        //Start Menu
-        menuDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-
-        //Start NavBottom
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         //Start Bottom Sheet
         openBottomSheet = (Button) findViewById(R.id.openBottomSheet);
 
+        //Open sub note
+        subNote = (TextView) findViewById(R.id.txtSubNewNote);
+
+        //Open deleted
+        deleted = (TextView) findViewById(R.id.openDeleted);
+
+        //Open allNotes
+        allNotes = (LinearLayout) findViewById(R.id.allNotes);
+    }
+
+    //Mở new note trên Phần ghi chú
+    private void setOpenSubNote() {
+        subNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent subNote = new Intent(MainActivity.this, NoteActivity.class);
+                startActivity(subNote);
+            }
+        });
+    }
+
+    //Open thùng rác
+    private void setOpenDeleted() {
+        deleted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openDeleted = new Intent(MainActivity.this, DeleteActivity.class);
+                startActivity(openDeleted);
+            }
+        });
     }
 
     //Open Search
@@ -148,61 +146,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    //Cài đặt cho menu
-    private void openMenu() {
-        setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this, menuDrawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        menuDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-//        NavigationView navigationView = findViewById(R.id.navigation_view);
-//        navigationView.setNavigationItemSelectedListener(this);
-//
-//        replaceFragment(new HomeFragment());
-//        navigationView.getMenu().findItem(R.id.nav_menu_home).setChecked(true);
-
-    }
-
-    //Cài đặt click item cho menu
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.nav_menu_home) {
-            if (currentFragment != FRAGMENT_HOME) {
-                replaceFragment(new HomeFragment());
-                currentFragment = FRAGMENT_HOME;
-                //Toast.makeText(MainActivity.this, "ok", Toast.LENGTH_SHORT).show();
+    //Open allNotes
+    private void setOpenAllNotes() {
+        allNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent allNotes = new Intent(MainActivity.this, NoteSlideTabActivity.class);
+                startActivity(allNotes);
             }
-        } else if (id == R.id.nav_menu_note) {
-            if (currentFragment != FRAGMENT_NOTE) {
-                replaceFragment(new NoteFragment());
-                currentFragment = FRAGMENT_NOTE;
-            }
-        } else if (id == R.id.nav_menu_task) {
-            if (currentFragment != FRAGMENT_TASK) {
-                replaceFragment(new TaskFragment());
-                currentFragment = FRAGMENT_TASK;
-            }
-        }
-        menuDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (menuDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            menuDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    //Thay thế fragment khi click
-    private void replaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_frame, fragment);
-        transaction.commit();
+        });
     }
 
     //Cài đặt Bottom Sheet

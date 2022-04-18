@@ -1,15 +1,13 @@
 <resources>
     <string name="app_name">LeafNote</string>
 
-    <!--String menu-->
-    <string name="nav_home">Trang chủ</string>
-    <string name="item_menu_2">Lối tắt</string>
-    <string name="nav_note">Ghi chú</string>
-    <string name="nav_task">Nhiệm vụ</string>
-    <string name="item_menu_5">Sổ tay</string>
-    <string name="item_menu_6">Thẻ</string>
-    <string name="item_menu_7">Đã chia sẻ với tôi</string>
-    <string name="item_menu_8">Thùng rác</string>
+    <!--String tabLayout-->
+    <string name="text_note">Văn bản</string>
+    <string name="photo_note">Ảnh</string>
+    <string name="video_note">Video</string>
+    <string name="attach_note">Đính kèm</string>
+    <string name="draw_note">Phát thảo</string>
+    <string name="record_note">Bản ghi</string>
 
     <string name="navigation_drawer_open">Open nav</string>
     <string name="navigation_drawer_close">Close nav</string>
