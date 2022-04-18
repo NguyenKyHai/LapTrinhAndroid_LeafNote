@@ -2,10 +2,10 @@
     <string name="app_name">LeafNote</string>
 
     <!--String menu-->
-    <string name="item_menu_1">Trang chủ</string>
+    <string name="nav_home">Trang chủ</string>
     <string name="item_menu_2">Lối tắt</string>
-    <string name="item_menu_3">Ghi chú</string>
-    <string name="item_menu_4">Nhiệm vụ</string>
+    <string name="nav_note">Ghi chú</string>
+    <string name="nav_task">Nhiệm vụ</string>
     <string name="item_menu_5">Sổ tay</string>
     <string name="item_menu_6">Thẻ</string>
     <string name="item_menu_7">Đã chia sẻ với tôi</string>

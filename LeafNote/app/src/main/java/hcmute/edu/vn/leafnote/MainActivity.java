@@ -1,29 +1,26 @@
 package hcmute.edu.vn.leafnote;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Menu;
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.SimpleDateFormat;
@@ -84,6 +81,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Menu
         openMenu();
 
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        replaceFragment(new HomeFragment());
+        navigationView.getMenu().findItem(R.id.nav_menu_home).setChecked(true);
+
         //Bottom Sheet
         openBottomSheet();
 
@@ -111,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(custom);
             }
         });
+
     }
 
     private void addControl() {
@@ -131,19 +135,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Start Bottom Sheet
         openBottomSheet = (Button) findViewById(R.id.openBottomSheet);
 
-        //Sub note
-        //subNote = (TextView) findViewById(R.id.txtSubNewNote);
-    }
-
-    //Open Sub Note
-    public void setOpenSubNote() {
-        subNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent newNote = new Intent(MainActivity.this, NoteActivity.class);
-                startActivity(newNote);
-            }
-        });
     }
 
     //Open Search
@@ -158,18 +149,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     //Cài đặt cho menu
-    public void openMenu() {
+    private void openMenu() {
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this, menuDrawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         menuDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(this);
+//        NavigationView navigationView = findViewById(R.id.navigation_view);
+//        navigationView.setNavigationItemSelectedListener(this);
+//
+//        replaceFragment(new HomeFragment());
+//        navigationView.getMenu().findItem(R.id.nav_menu_home).setChecked(true);
 
-        replaceFragment(new NoteFragment());
-        navigationView.getMenu().findItem(R.id.nav_menu_home).setChecked(true);
     }
 
     //Cài đặt click item cho menu
@@ -177,29 +169,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_menu_home) {
-            if(currentFragment != FRAGMENT_HOME){
+            if (currentFragment != FRAGMENT_HOME) {
                 replaceFragment(new HomeFragment());
                 currentFragment = FRAGMENT_HOME;
+                //Toast.makeText(MainActivity.this, "ok", Toast.LENGTH_SHORT).show();
             }
-        } else if (id == R.id.nav_menu_note){
-            if(currentFragment != FRAGMENT_NOTE){
+        } else if (id == R.id.nav_menu_note) {
+            if (currentFragment != FRAGMENT_NOTE) {
                 replaceFragment(new NoteFragment());
                 currentFragment = FRAGMENT_NOTE;
             }
-        } else if (id == R.id.nav_menu_task){
-            if(currentFragment != FRAGMENT_TASK){
+        } else if (id == R.id.nav_menu_task) {
+            if (currentFragment != FRAGMENT_TASK) {
                 replaceFragment(new TaskFragment());
                 currentFragment = FRAGMENT_TASK;
             }
         }
-
         menuDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        if(menuDrawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (menuDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             menuDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
@@ -207,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     //Thay thế fragment khi click
-    private void replaceFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_frame, fragment);
         transaction.commit();
@@ -215,11 +207,82 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //Cài đặt Bottom Sheet
     public void openBottomSheet() {
+        //Mở bottomsheet
         openBottomSheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog();
-                bottomSheetDialog.show(getSupportFragmentManager(), "TAG");
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                        MainActivity.this, R.style.BottomSheetDialogTheme
+                );
+
+                View bottomSheetView = LayoutInflater.from(getApplicationContext())
+                        .inflate(
+                                R.layout.layout_bottom_sheet,
+                                (LinearLayout)findViewById(R.id.bottomSheetContainer)
+                        );
+
+
+                //Sự kiện mở ghi chú mới
+                bottomSheetView.findViewById(R.id.createNewNote).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent createNewNote = new Intent(MainActivity.this, NoteActivity.class);
+                        startActivity(createNewNote);
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+
+                //Sự kiện chụp ảnh
+                bottomSheetView.findViewById(R.id.createCamera).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent openCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivity(openCamera);
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+
+                //Sự kiện quay phim
+                bottomSheetView.findViewById(R.id.createVideo).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent openVideo = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                        startActivity(openVideo);
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+
+                //Sự kiện mở phát thảo
+                bottomSheetView.findViewById(R.id.createDraw).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent openDraw = new Intent(MainActivity.this, DrawActivity.class);
+                        startActivity(openDraw);
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+
+                //Sự kiện mở đính kèm
+                bottomSheetView.findViewById(R.id.createAttach).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent openFolder = new Intent(Intent.ACTION_PICK);
+                        startActivity(openFolder);
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+
+                //Sự kiện mở ghi âm
+                bottomSheetView.findViewById(R.id.createRecord).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent openRecord = new Intent(MainActivity.this, RecordActivity.class);
+                        startActivity(openRecord);
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
             }
         });
     }

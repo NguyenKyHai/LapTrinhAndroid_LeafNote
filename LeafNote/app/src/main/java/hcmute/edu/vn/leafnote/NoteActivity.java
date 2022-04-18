@@ -1,12 +1,11 @@
 package hcmute.edu.vn.leafnote;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class NoteActivity extends AppCompatActivity {
 
@@ -29,7 +28,7 @@ public class NoteActivity extends AppCompatActivity {
         saveNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(NoteActivity.this, "Đã lưu ghi chú", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NoteActivity.this, "Đã lưu bản ghi chú", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

@@ -9,6 +9,7 @@
     tools:openDrawer="start"
     tools:context=".MainActivity">
 
+
 <!--Bắt đầu trang chủ-->
     <ScrollView
         android:id="@+id/Home"
@@ -20,6 +21,18 @@
             android:layout_height="wrap_content"
             android:paddingBottom="120dp"
             android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center|left" />
+            </com.google.android.material.appbar.AppBarLayout>
 
 
             <RelativeLayout
@@ -93,7 +106,7 @@
             <FrameLayout
                 android:id="@+id/content_frame"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
             </FrameLayout>
         </LinearLayout>
     </ScrollView>
@@ -117,6 +130,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
@@ -124,16 +138,22 @@
         android:layout_alignParentBottom="true"
         android:background="@color/space"
         android:paddingLeft="20dp"
+        android:paddingTop="10dp"
         android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        android:paddingBottom="10dp">
 
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center|left"/>
+<!--        <com.google.android.material.appbar.AppBarLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="20dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_gravity="center|left" />-->
+<!--        </com.google.android.material.appbar.AppBarLayout>-->
 
         <TextView
             android:id="@+id/openSearch"

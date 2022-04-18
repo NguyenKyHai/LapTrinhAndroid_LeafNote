@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomSheetContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <ScrollView
@@ -18,16 +19,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:scrollbars="horizontal"
                 android:gravity="center_horizontal|center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/createCamera"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="@drawable/stroke"
@@ -50,12 +54,52 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/createVideo"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/stroke"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textvideo"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:background="@drawable/ic_baseline_videocam_24" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textVideo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Quay phim" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:scrollbars="horizontal"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/createDraw"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="@drawable/stroke"
@@ -78,12 +122,13 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/createAttach"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="@drawable/stroke"
@@ -106,12 +151,13 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/createRecord"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="@drawable/stroke"
@@ -178,6 +224,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/createTask"
                     android:layout_width="350dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"

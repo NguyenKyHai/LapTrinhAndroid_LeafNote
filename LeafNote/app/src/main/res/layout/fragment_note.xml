@@ -97,7 +97,7 @@
                     android:drawableStart="@drawable/ic_baseline_book_24"/>
 
                 <TextView
-                    android:id="@+id/textView53"
+                    android:id="@+id/txtNameNote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
@@ -105,7 +105,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/edtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -126,7 +126,7 @@
                     android:orientation="vertical" >
 
                     <EditText
-                        android:id="@+id/editTextTextPersonName4"
+                        android:id="@+id/edtContent"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
