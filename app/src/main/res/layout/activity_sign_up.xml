@@ -40,6 +40,22 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:id="@+id/edtSignUpName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="Họ và tên"
+                    android:background="@drawable/shadow"
+                    android:inputType="textEmailAddress"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="25dp"
+                    android:textSize="16dp" />
+
+                <EditText
                     android:id="@+id/edtSignUpEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -55,6 +71,21 @@
                     android:layout_marginBottom="25dp"
                     android:textSize="16dp" />
 
+                <EditText
+                    android:id="@+id/edtSignUpUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="Tài khoản"
+                    android:background="@drawable/shadow"
+                    android:inputType="textEmailAddress"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="25dp"
+                    android:textSize="16dp" />
 
                 <EditText
                     android:id="@+id/edtSignUpPassword"
